@@ -5,11 +5,15 @@ ENV["TERM"] = "xterm-256color"
 ENV["LC_ALL"] = "en_US.UTF-8"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "jhcook/fedora26" # defaults to fedora
+  config.vm.box = "fedora/26-cloud-base" # defaults to fedora
 
   # common parts
   if Vagrant.has_plugin?("vagrant-vbguest")
     config.vbguest.auto_update = false
+  end
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.cpus = 2
+    libvirt.memory = 4096
   end
   config.vm.provider :virtualbox do |vb|
     vb.check_guest_additions = false
